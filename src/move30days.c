@@ -22,69 +22,110 @@ typedef struct {
 } command;
 
 typedef struct {
-  long year;
-  long month;
-  long day;
+  int year;
+  int month;
+  int day;
 } sdate;
 
-sdate diaactual;
-sdate diafinal;
+sdate diaactual = {2021, 7 ,16};
+sdate diafinal = {2022, 12 ,6};
 
 static const int YEAR = 9;
 static const int MONTH = 5;
 static const int DAY = 1;
 
 static const command movedate[] = {
-	{ UP,         5 },		{ NOTHING,  5 },
-	{ RIGHT,      5 },		{ NOTHING,  5 },
-	{ UP,         5 },		{ NOTHING,  5 },
-	{ RIGHT,      5 },		{ NOTHING,  5 },
-	{ UP,         5 },		{ NOTHING,  5 },
+	{ UP,         2 },		{ NOTHING,  2 },
+	{ RIGHT,      2 },		{ NOTHING,  2 },
+	{ UP,         2 },		{ NOTHING,  2 },
+	{ RIGHT,      2 },		{ NOTHING,  2 },
+	{ UP,         2 },		{ NOTHING,  2 },
 };
 
 static const command step[] = {
 	// Setup controller
 						{ NOTHING,  100 },
-	{ TRIGGERS,   5 },	{ NOTHING,  50 },
-	{ TRIGGERS,   5 },	{ NOTHING,  50 },
-	{ A,          5 },	{ NOTHING,  50 },
+	// 1 2
+	{ TRIGGERS,   2 },	{ NOTHING,  50 },
+	// 2 4
+	{ TRIGGERS,   2 },	{ NOTHING,  50 },
+	// 5 6
+	{ A,          2 },	{ NOTHING,  50 },
 	// Open game 
-	{ HOME,       5 },	{ NOTHING,  50 },
-	{ A,          5 },	{ NOTHING,  50 },
+	// 7-8
+	{ HOME,       2 },	{ NOTHING,  50 },
+	// 9-10
+	{ A,          2 },	{ NOTHING,  50 },
 	// Set Day
-	{ HOME,       5 },		{ NOTHING,  80 },
-	{ DOWN,       5 },		{ NOTHING,  2 },
-	{ RIGHT,      5 },		{ NOTHING,  1 },
-	{ RIGHT,      5 },		{ NOTHING,  1 },
-	{ RIGHT,      5 },		{ NOTHING,  1 },
-	{ RIGHT,      5 },		{ NOTHING,  1 },
-	{ A,          5 },		{ NOTHING,  40 },
+	// 11-12
+	{ HOME,       2 },		{ NOTHING,  80 },
+	// 13-14
+	{ DOWN,       2 },		{ NOTHING,  2 },
+	// 15-16
+	{ RIGHT,      2 },		{ NOTHING,  1 },
+	// 17-18
+	{ RIGHT,      2 },		{ NOTHING,  1 },
+	// 19-20
+	{ RIGHT,      2 },		{ NOTHING,  1 },
+	// 21-22
+	{ RIGHT,      2 },		{ NOTHING,  1 },
+	// 23-24
+	{ A,          2 },		{ NOTHING,  40 },
+	// 25-26
 	{ DOWN,       80 },		{ NOTHING,  10 },
-	{ A,          5 },		{ NOTHING,  20 },
-	{ DOWN,       5 },		{ NOTHING,  5 },
-	{ DOWN,       5 },		{ NOTHING,  5 },
-	{ DOWN,       5 },		{ NOTHING,  5 },
-	{ DOWN,       5 },		{ NOTHING,  5 },
-	{ A,          5 },		{ NOTHING,  20 },
-	{ DOWN,       5 },		{ NOTHING,  5 },
-	{ DOWN,       5 },		{ NOTHING,  5 },
-	{ A,          5 },		{ NOTHING,  20 },
+	// 27-28
+	{ A,          2 },		{ NOTHING,  20 },
+	// 29-30
+	{ DOWN,       2 },		{ NOTHING,  2 },
+	// 31-32
+	{ DOWN,       2 },		{ NOTHING,  2 },
+	// 33-34
+	{ DOWN,       2 },		{ NOTHING,  2 },
+	// 35-36
+	{ DOWN,       2 },		{ NOTHING,  2 },
+	// 37-38
+	{ A,          2 },		{ NOTHING,  20 },
+	// 39-40
+	{ DOWN,       2 },		{ NOTHING,  2 },
+	// 41-42
+	{ DOWN,       2 },		{ NOTHING,  2 },
+	// 43-44
+	{ A,          2 },		{ NOTHING,  15 },
+	// 45-46
+	{ LEFT,       2 },		{ NOTHING,  2 },
+	// 47-48
+	{ LEFT,       2 },		{ NOTHING,  2 },
+	// 49-50
+	{ LEFT,       2 },		{ NOTHING,  2 },
+	// 51-52
+	{ LEFT,       2 },		{ NOTHING,  2 },
+	// 53-54
+	{ LEFT,       2 },		{ NOTHING,  5 },
 	// HERE IS THE DAY CHANGE, COMMENT IS FOR ONE DAY
-	// { UP,         5 },		{ NOTHING,  5 },
-	{ RIGHT,      25 },		{ NOTHING,  5 },
-	{ A,          5 },		{ NOTHING,  5 },
-	{ HOME,       5 },		{ NOTHING,  80 },
-	{ A,          5 },		{ NOTHING,  100},
+	// { UP,         2 },		{ NOTHING,  2 },
+	// 55-56
+	{ RIGHT,      2 },		{ NOTHING,  2 },
+	// 57-58
+	{ RIGHT,      2 },		{ NOTHING,  2 },
+	// 59-60
+	{ RIGHT,      2 },		{ NOTHING,  2 },
+	// 61-62
+	{ RIGHT,      2 },		{ NOTHING,  2 },
+	// 63-64
+	{ RIGHT,      2 },		{ NOTHING,  2 },
+	// 65-66
+	{ A,          2 },		{ NOTHING,  6 },
+	// Next not necesary
+	// { HOME,       5 },		{ NOTHING,  80 },
+	// { A,          5 },		{ NOTHING,  100},
+	// tmp to get reward
+	// { A,          5 },	{ NOTHING,  10 },/
+	// { A,          5 },	{ NOTHING,  10 },
+	// { A,          5 },	{ NOTHING,  30 },
+	// { B,          5 },	{ NOTHING,  50 },
 };
 
 int main(void) {
-	diaactual.year = 2020;
-	diaactual.month = 2;
-	diaactual.day = 3;
-
-	diafinal.year = 2020;
-	diafinal.month = 3;
-	diafinal.year = 1;
 	SetupHardware();
 	GlobalInterruptEnable();
  	for (;;) {
@@ -171,26 +212,26 @@ int movetype = 0;
 sdate tmpdate;
 
 long date2number(sdate date) {
-  long  y, m;
-  m = (date.month + 9)%12;
-  y = date.year - m/10;
-  return y*365 + y/4 - y/100 + y/400 + (m*306 + 5)/10 + (date.day - 1);
+  long long  y, m;
+  m = ((long)date.month + 9)%12;
+  y = (long)date.year - m/10;
+  return y*365 + y/4 - y/100 + y/400 + (m*306 + 5)/10 + ((long)date.day - 1);;
 }
 
 sdate number2date(long d) {
   sdate pd;
-  long y, ddd, mm, dd, mi;
+  long long y, ddd, mi;
 
-  y = (10000*d + 14780)/3652425;
-  ddd = d - (y*365 + y/4 - y/100 + y/400);
+  y = (10000LL*(long long)d + 14780LL)/3652425LL;
+  ddd = (long long)d - (y*365LL + y/4LL - y/100LL + y/400LL);
   if (ddd < 0) {
     y--;
-    ddd = d - (y*365 + y/4 - y/100 + y/400);
+    ddd = (long long)d - (y*365LL + y/4LL - y/100LL + y/400LL);
   }
-  mi = (52 + 100*ddd)/3060;
-  pd.year = y + (mi + 2)/12;
-  pd.month = (mi + 2)%12 + 1;
-  pd.day = ddd - (mi*306 + 5)/10 + 1;
+  mi = (52LL + 100LL*ddd)/3060LL;
+  pd.year =(int) (y + (mi + 2LL)/12LL);
+  pd.month =(int) ((mi + 2LL)%12LL + 1LL);
+  pd.day =(int) (ddd - (mi*306LL + 5LL)/10LL + 1LL);
   return pd;
 }
 
@@ -265,7 +306,7 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 				bufindex++;
 				duration_count = 0;
 				
-				if (bufindex == 45) {
+				if (bufindex == 55) {
 					state = VERIFYDAY;
 				}
 			}
@@ -273,7 +314,7 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 				if (diaactual.year == diafinal.year && diaactual.month == diafinal.month && diaactual.day == diafinal.day) {
 					state = CLEANUP;
 				} else {
-					bufindex = 11;
+					bufindex = 43;
 					duration_count = 0;
 					state = BREATHE;
 				}
@@ -287,15 +328,16 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 		case VERIFYDAY:
 		    tmpdate = number2date(date2number(diaactual) + 1);
 		    if (tmpdate.year != diaactual.year) {
-          		movetype = YEAR;
-        	} else if (tmpdate.month != diaactual.month){
-          		movetype = MONTH;
-        	} else {
-          		movetype = DAY;
-        	}
-		    diaactual.year = tmpdate.year;
-		    diaactual.month = tmpdate.month;
-		    diaactual.day = tmpdate.day;
+            	movetype = YEAR;
+          	} else if (tmpdate.month != diaactual.month){
+             	movetype = MONTH;
+          	} else {
+            	movetype = DAY;
+          	}
+			diaactual.year = tmpdate.year;
+	        diaactual.month = tmpdate.month;
+	        diaactual.day = tmpdate.day;
+
 		    dateindex = 0;
 		    state = CHANGEDAY;
 		    
@@ -328,7 +370,6 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 				duration_count = 0;				
 			}
 			if (dateindex > movetype) {
-				duration_count = 0;
 				state = BREATHE;
 				ReportData->LX = STICK_CENTER;
 				ReportData->LY = STICK_CENTER;
