@@ -27,8 +27,8 @@ typedef struct {
   int day;
 } sdate;
 
-sdate diaactual = {2021, 7 ,16};
-sdate diafinal = {2022, 12 ,6};
+sdate diaactual = {2020, 3, 20};
+sdate diafinal = {2024, 7, 23};
 
 static const int YEAR = 9;
 static const int MONTH = 5;
@@ -114,7 +114,7 @@ static const command step[] = {
 	// 63-64
 	{ RIGHT,      2 },		{ NOTHING,  2 },
 	// 65-66
-	{ A,          2 },		{ NOTHING,  6 },
+	{ A,          2 },		{ NOTHING,  50 },
 	// Next not necesary
 	// { HOME,       5 },		{ NOTHING,  80 },
 	// { A,          5 },		{ NOTHING,  100},
@@ -208,6 +208,7 @@ int dateindex = 0;
 int duration_count = 0;
 int portsval = 0;
 int movetype = 0;
+int counterdays = 0;
 
 sdate tmpdate;
 
@@ -314,7 +315,12 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 				if (diaactual.year == diafinal.year && diaactual.month == diafinal.month && diaactual.day == diafinal.day) {
 					state = CLEANUP;
 				} else {
-					bufindex = 43;
+					if (counterdays == 15) {
+						counterdays = 0;
+						bufindex = 7;
+					} else {
+						bufindex = 43;
+					}
 					duration_count = 0;
 					state = BREATHE;
 				}
@@ -337,6 +343,8 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 			diaactual.year = tmpdate.year;
 	        diaactual.month = tmpdate.month;
 	        diaactual.day = tmpdate.day;
+
+	        counterdays++;
 
 		    dateindex = 0;
 		    state = CHANGEDAY;
