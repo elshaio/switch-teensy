@@ -29,7 +29,7 @@ typedef struct {
   int day;
 } sdate;
 
-sdate diaactual = {2020, 3, 20};
+sdate diaactual = {2020, 3, 31};
 
 static const int YEAR = 9;
 static const int MONTH = 5;

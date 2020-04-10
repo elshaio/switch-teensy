@@ -27,10 +27,9 @@ typedef struct {
   int day;
 } sdate;
 
-sdate diaactual = {2020, 4, 10};
-sdate diafinal = {2023, 12, 3};
+sdate diaactual = {2020, 3, 28};
+sdate diafinal = {2021, 2, 12}; 
 
-static const int daystowait = 1;
 static const int YEAR = 9;
 static const int MONTH = 5;
 static const int DAY = 1;
@@ -57,6 +56,7 @@ static const command step[] = {
 	{ HOME,       2 },	{ NOTHING,  50 },
 	// 9-10
 	{ A,          2 },	{ NOTHING,  50 },
+	// Set Day
 	// 11-12
 	{ HOME,       2 },		{ NOTHING,  80 },
 	// 13-14
@@ -114,42 +114,15 @@ static const command step[] = {
 	// 63-64
 	{ RIGHT,      2 },		{ NOTHING,  2 },
 	// 65-66
-	{ A,          2 },		{ NOTHING,  15 },
-	// Return to game
-	// 67-68
-	{ HOME,       2 },		{ NOTHING,  50 },
-	// 69-70
-	{ HOME,       2 },		{ NOTHING,  50 },
-	// 71-72
-	{ B,          5 },		{ NOTHING,  10 },
-	// 73-74
-	{ B,          5 },		{ NOTHING,  10 },
-	// 75-76
-	{ B,          5 },		{ NOTHING,  10 },
-	// 77-78
-	{ B,          5 },		{ NOTHING,  10 },
-	// 79-80
-	{ B,          5 },		{ NOTHING,  10 },
-	// Cover watts
-	// 81-82
-	{ A,          5 },		{ NOTHING,  10 },
-	// Accept watts
-	// 83-84
-	{ B,          5 },		{ NOTHING,  30 },
-	// Enter Den
-	// 85-86
-	{ B,          5 },		{ NOTHING,  100 },
-	// And Leave
-	// 87-88
-	{ B,          5 },		{ NOTHING,  10 },
-	// 89-90
-	{ B,          5 },		{ NOTHING,  10 },
-	// 91-92
-	{ B,          5 },		{ NOTHING,  10 },
-	// 93-94
-	{ B,          5 },		{ NOTHING,  10 },
-	// 95-96
-	{ B,          5 },		{ NOTHING,  10 },
+	{ A,          2 },		{ NOTHING,  50 },
+	// Next not necesary
+	// { HOME,       5 },		{ NOTHING,  80 },
+	// { A,          5 },		{ NOTHING,  100},
+	// tmp to get reward
+	// { A,          5 },	{ NOTHING,  10 },/
+	// { A,          5 },	{ NOTHING,  10 },
+	// { A,          5 },	{ NOTHING,  30 },
+	// { B,          5 },	{ NOTHING,  50 },
 };
 
 int main(void) {
@@ -336,24 +309,21 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 				
 				if (bufindex == 55) {
 					state = VERIFYDAY;
-				} else if (bufindex >= 67 
-					&& counterdays < daystowait) {
-					bufindex = 43;
 				}
 			}
 			if (bufindex > (int)( sizeof(step) / sizeof(step[0])) - 1) {
-				counterdays = 0;
-				bufindex = 11;
-				duration_count = 0;
-				state = BREATHE;
-				ReportData->LX = STICK_CENTER;
-				ReportData->LY = STICK_CENTER;
-				ReportData->RX = STICK_CENTER;
-				ReportData->RY = STICK_CENTER;
-				ReportData->HAT = HAT_CENTER;
-			}
-			if ((bufindex == 66 || bufindex == 96) && diaactual.year == diafinal.year && diaactual.month == diafinal.month && diaactual.day == diafinal.day) {
-				state = CLEANUP;
+				if (diaactual.year == diafinal.year && diaactual.month == diafinal.month && diaactual.day == diafinal.day) {
+					state = CLEANUP;
+				} else {
+					if (counterdays == 15) {
+						counterdays = 0;
+						bufindex = 7;
+					} else {
+						bufindex = 43;
+					}
+					duration_count = 0;
+					state = BREATHE;
+				}
 				ReportData->LX = STICK_CENTER;
 				ReportData->LY = STICK_CENTER;
 				ReportData->RX = STICK_CENTER;
