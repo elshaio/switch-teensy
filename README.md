@@ -1,4 +1,4 @@
-Install [Teensy Loader] (https://www.pjrc.com/teensy/loader_linux.html) with udev rules.
+Install [Teensy Loader](https://www.pjrc.com/teensy/loader_linux.html) with udev rules.
 
 Then
 
