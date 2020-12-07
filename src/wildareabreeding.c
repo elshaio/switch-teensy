@@ -36,7 +36,7 @@ typedef struct {
 35 cycles = 4900
 40 cycles = 5600
 */
-#define cycles 2800
+#define cycles 2100
 int eggs = 960;
 
 static const command step[] = {

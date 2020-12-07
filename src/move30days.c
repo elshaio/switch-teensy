@@ -27,8 +27,8 @@ typedef struct {
   int day;
 } sdate;
 
-sdate diaactual = {2020, 4, 10};
-sdate diafinal = {2023, 12, 3};
+sdate diaactual = {2020, 10, 28};
+sdate diafinal = {2028, 11, 4};
 
 static const int daystowait = 1;
 static const int YEAR = 9;
@@ -58,7 +58,7 @@ static const command step[] = {
 	// 9-10
 	{ A,          2 },	{ NOTHING,  50 },
 	// 11-12
-	{ HOME,       2 },		{ NOTHING,  80 },
+	{ HOME,       2 },		{ NOTHING,  60 },
 	// 13-14
 	{ DOWN,       2 },		{ NOTHING,  2 },
 	// 15-16
@@ -72,7 +72,7 @@ static const command step[] = {
 	// 23-24
 	{ A,          2 },		{ NOTHING,  40 },
 	// 25-26
-	{ DOWN,       80 },		{ NOTHING,  10 },
+	{ DOWN,       60 },		{ NOTHING,  10 },
 	// 27-28
 	{ A,          2 },		{ NOTHING,  20 },
 	// 29-30
@@ -92,15 +92,15 @@ static const command step[] = {
 	// 43-44
 	{ A,          2 },		{ NOTHING,  15 },
 	// 45-46
-	{ LEFT,       2 },		{ NOTHING,  2 },
+	// { LEFT,       2 },		{ NOTHING,  2 },
 	// 47-48
-	{ LEFT,       2 },		{ NOTHING,  2 },
+	// { LEFT,       2 },		{ NOTHING,  2 },
 	// 49-50
-	{ LEFT,       2 },		{ NOTHING,  2 },
+	// { LEFT,       2 },		{ NOTHING,  2 },
 	// 51-52
-	{ LEFT,       2 },		{ NOTHING,  2 },
+	// { LEFT,       2 },		{ NOTHING,  2 },
 	// 53-54
-	{ LEFT,       2 },		{ NOTHING,  5 },
+	// { LEFT,       2 },		{ NOTHING,  5 },
 	// HERE IS THE DAY CHANGE, COMMENT IS FOR ONE DAY
 	// { UP,         2 },		{ NOTHING,  2 },
 	// 55-56
@@ -138,7 +138,7 @@ static const command step[] = {
 	{ B,          5 },		{ NOTHING,  30 },
 	// Enter Den
 	// 85-86
-	{ B,          5 },		{ NOTHING,  100 },
+	{ B,          5 },		{ NOTHING,  80 },
 	// And Leave
 	// 87-88
 	{ B,          5 },		{ NOTHING,  10 },
@@ -334,9 +334,9 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 				bufindex++;
 				duration_count = 0;
 				
-				if (bufindex == 55) {
+				if (bufindex == 45) {
 					state = VERIFYDAY;
-				} else if (bufindex >= 67 
+				} else if (bufindex >= 57 
 					&& counterdays < daystowait) {
 					bufindex = 43;
 				}

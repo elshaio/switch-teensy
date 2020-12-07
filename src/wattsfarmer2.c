@@ -27,7 +27,7 @@ typedef struct {
   int day;
 } sdate;
 
-sdate diaactual = {2020, 3, 20};
+sdate diaactual = {2020, 10, 28};
 sdate diafinal = {2024, 7, 23};
 
 static const int YEAR = 9;
